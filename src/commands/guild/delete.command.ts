@@ -18,6 +18,11 @@ export class DeleteGuildCommand extends SubCommand {
             return;
         }
 
+        if (guild.ownerId !== ctx.author.id) {
+            await ctx.editOrReply({ content: "Nuh-uh! Only the guild owner can use this command, silly~ 😤💕" });
+            return;
+        }
+
         try {
             const existingGuild = await db.select()
                 .from(guildSchemaData)
