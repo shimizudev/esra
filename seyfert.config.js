@@ -8,5 +8,6 @@ module.exports = config.bot({
     base: "src",
     output: process.env.NODE_ENV === 'dev' ? "src" : "dist",
     commands: "commands",
+    events: "events",
   },
 });
