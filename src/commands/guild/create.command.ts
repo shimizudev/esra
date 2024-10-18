@@ -1,18 +1,20 @@
-import { Declare, Command, type CommandContext, Middlewares } from "seyfert";
-import { guildSchemaData } from "src/db/schema/guild";
+import { Declare, type CommandContext, SubCommand } from "seyfert";
+import { guildSchemaData } from "src/db/schema";
 import { db } from "src/db/db";
 import { eq } from "drizzle-orm";
 
 @Declare({
     name: "create",
-    description: "Create a guild"
+    description: "Create a cute guild~ 💖"
 })
-export default class CreateGuildCommand extends Command {
+export class CreateGuildCommand extends SubCommand {
     public async run(ctx: CommandContext): Promise<void> {
+        await ctx.deferReply();
+
         const guild = ctx.guild("cache");
 
         if (!guild) {
-            await ctx.editOrReply({ content: "This command can only be used in a guild." });
+            await ctx.editOrReply({ content: "This command is only available in guilds, sweetie~ 💫" });
             return;
         }
 
@@ -23,7 +25,7 @@ export default class CreateGuildCommand extends Command {
                 .execute();
 
             if (existingGuild.length > 0) {
-                await ctx.editOrReply({ content: "A guild already exists for this server" });
+                await ctx.editOrReply({ content: "Aww, a guild already exists for this server, silly~ 💕" });
                 return;
             }
 
@@ -34,20 +36,10 @@ export default class CreateGuildCommand extends Command {
                 motto: guild.description ?? ""
             }).execute();
 
-            await ctx.editOrReply({ content: "Guild created successfully!" });
+            await ctx.editOrReply({ content: "Yay! Guild created successfully! 🎉" });
         } catch (error) {
-            console.error("Error creating guild:", error);
-            await ctx.editOrReply({ content: "An error occurred while creating the guild. Please try again later." });
+            console.error("Oopsie! Error creating guild:", error);
+            await ctx.editOrReply({ content: "Uh-oh, something went wrong... Please try again later, okay? 😖" });
         }
-    }
-}
-
-@Middlewares(["ownerOnly"])
-export class HandlingErrors extends Command {
-    // @ts-expect-error: Giving a false middleware error cause TypeScript's jealous.
-    public async onMiddlewaresError(context: CommandContext, error: Error): Promise<void> {
-        await context.editOrReply({
-            content: error.message
-        });
     }
 }
