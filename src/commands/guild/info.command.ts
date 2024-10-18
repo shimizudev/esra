@@ -39,7 +39,33 @@ export class GuildInfoCommand extends SubCommand {
             const embed = new Embed();
             embed.setColor(0xC4B08B);
             embed.setDescription("Here's your guild info, darling~");
-            embed.setFields([ { name: "Guild Name", value: thisGuild?.name ?? guild.name, inline: true }, { name: "Guild Motto", value: thisGuild?.motto ?? "Nothing ૮ ˶ᵔ ᵕ ᵔ˶ ა", inline: true } ]);
+            embed.setFields([
+                {
+                    name: "Guild Name",
+                    value: thisGuild?.name ?? guild.name,
+                    inline: true
+                },
+                {
+                    name: "Guild Motto",
+                    value: thisGuild?.motto === "" ? "Nothing ૮ ˶ᵔ ᵕ ᵔ˶ ა" : thisGuild?.motto as string,
+                    inline: true
+                },
+                {
+                    name: "Owner",
+                    value: `<@${thisGuild?.owner_id ?? guild.ownerId}>`,
+                    inline: true
+                },
+                {
+                    name: "Guild Id",
+                    value: thisGuild?.guild_id.toString() as string,
+                    inline: true
+                },
+                {
+                    name: "Total Members",
+                    value: (thisGuild?.totalMembers ?? 1).toString(),
+                    inline: true
+                }
+            ]);
             embed.setThumbnail(thisGuild?.icon ?? guild.iconURL({ forceStatic: true, extension: "png" }));
             embed.setFooter({ text: `${guild.name}`, iconUrl: ctx.me("cache")?.avatarURL({ forceStatic: true, extension: "png" }) });
             embed.setTimestamp();
