@@ -1,11 +1,12 @@
 import { Declare, Command, Options, Middlewares } from "seyfert";
 import { CreateGuildCommand } from "./create.command";
+import { DeleteGuildCommand } from "./delete.command";
 
 @Declare({
     name: "guild",
     description: "guild commands"
 })
-@Options([CreateGuildCommand])
+@Options([CreateGuildCommand, DeleteGuildCommand])
 export default class GuildCommand extends Command {}
 
 @Middlewares(["ownerOnly"])
