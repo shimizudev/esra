@@ -1,0 +1,2 @@
+ALTER TABLE "guild_schema"."guilds" ADD COLUMN "owner_id" text DEFAULT '' NOT NULL;--> statement-breakpoint
+ALTER TABLE "guild_schema"."guilds" ADD CONSTRAINT "guilds_owner_id_unique" UNIQUE("owner_id");

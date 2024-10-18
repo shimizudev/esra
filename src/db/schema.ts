@@ -1,10 +1,11 @@
-import { serial, text, integer, pgSchema } from "drizzle-orm/pg-core";
+import { serial, text, integer, pgSchema, boolean } from "drizzle-orm/pg-core";
 
 export const guildSchema = pgSchema("guild_schema");
 
 export const guildSchemaData = guildSchema.table("guilds", {
     id: serial("id").primaryKey(),
     guild_id: text("guild_id").notNull().unique(),
+    owner_id: text("owner_id").notNull().unique().default(""),
     name: text("name").notNull(),
     totalMembers: integer("total_members").default(0),
     level: integer("level").default(1),
@@ -22,6 +23,7 @@ export const memberSchemaData = memberSchema.table("members", {
     level: integer("level").default(1),
     about: text("about").default(""),
     icon: text("icon").default(""),
+    isOwner: boolean("is_owner").default(false),
     guild_id: text("guild_id").references(() => guildSchemaData.guild_id)
 });
 
