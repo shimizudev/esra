@@ -1,7 +1,8 @@
-import { Declare, type CommandContext, SubCommand } from "seyfert";
+import { Declare, type CommandContext, SubCommand, Message, Button, ActionRow } from "seyfert";
 import { guildSchemaData, memberSchemaData } from "src/db/schema";
 import { db } from "src/db/db";
 import { eq } from "drizzle-orm";
+import { ButtonStyle } from "seyfert/lib/types";
 
 @Declare({
     name: "delete",
@@ -34,10 +35,29 @@ export class DeleteGuildCommand extends SubCommand {
                 return;
             }
 
-            await db.delete(memberSchemaData).where(eq(memberSchemaData.guild_id, guild.id));
-            await db.delete(guildSchemaData).where(eq(guildSchemaData.guild_id, guild.id));
+            const yesButton = new Button().setCustomId("yes").setStyle(ButtonStyle.Danger).setLabel("Yes");
+            const noButton = new Button().setCustomId("no").setStyle(ButtonStyle.Secondary).setLabel("No");
 
-            await ctx.editOrReply({ content: "Guild successfully deleted... It’s gone now... 😢" });
+            const buttons = new ActionRow().addComponents(yesButton, noButton);
+
+            const reply = await ctx.editOrReply({ content: "Deleting guild will also delete all the members in it, are you sure you want to proceed? 🤔", components: [buttons] });
+
+            const collector = (reply as Message).createComponentCollector();
+
+            collector.run("yes", async (interaction) => {
+                await (reply as Message).delete();
+                await db.delete(memberSchemaData).where(eq(memberSchemaData.guild_id, guild.id));
+                await db.delete(guildSchemaData).where(eq(guildSchemaData.guild_id, guild.id));
+
+                return interaction.editOrReply({ content: "Guild successfully deleted... It’s gone now... 😢" });
+            });
+
+            collector.run("no", async (interaction) => {
+                await (reply as Message).delete();
+                return interaction.editOrReply({ content: "Guild deletion cancelled" });
+            });
+
+            return;
         } catch (error) {
             console.error("Oopsie! Error deleting guild:", error);
             await ctx.editOrReply({ content: "Uh-oh, something went wrong... Please try again later, okay? 😖" });
