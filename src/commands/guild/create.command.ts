@@ -1,5 +1,5 @@
 import { Declare, type CommandContext, SubCommand, Embed } from "seyfert";
-import { guildSchemaData } from "src/db/schema";
+import { guildSchemaData, memberSchemaData } from "src/db/schema";
 import { db } from "src/db/db";
 import { eq } from "drizzle-orm";
 
@@ -38,8 +38,22 @@ export class CreateGuildCommand extends SubCommand {
                 guild_id: guild.id,
                 name: guild.name,
                 icon: guild.iconURL({ forceStatic: true, extension: "png" }),
-                motto: guild.description ?? ""
+                motto: guild.description ?? "",
+                owner_id: guild.ownerId,
+                totalMembers: 1
             }).execute();
+
+            const guildOwner = await guild.fetchOwner();
+
+            await db.insert(memberSchemaData).values({
+                guild_id: guild.id,
+                user_id: guild.ownerId,
+                isOwner: true,
+                about: `Owner of ${guild.name}`,
+                name: guildOwner?.displayName,
+                username: guildOwner?.username ?? "",
+                icon: guildOwner?.avatarURL({ forceStatic: true, extension: "png" })
+            });
 
             const embed = new Embed();
             embed.setColor(0xC4B08B);
