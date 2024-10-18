@@ -1,0 +1,43 @@
+{
+  "name": "esra",
+  "version": "1.0.0",
+  "description": "A bot",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devaoto/esra.git"
+  },
+  "author": "Mohtasim Alam Sohom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devaoto/esra/issues"
+  },
+  "homepage": "https://github.com/devaoto/esra#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.35.1",
+    "pg": "^8.13.0",
+    "seyfert": "^2.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@stylistic/eslint-plugin": "^2.9.0",
+    "@types/node": "^22.7.6",
+    "@types/pg": "^8.11.10",
+    "@typescript-eslint/eslint-plugin": "^8.9.0",
+    "@typescript-eslint/parser": "^8.9.0",
+    "drizzle-kit": "^0.26.2",
+    "eslint": "^9.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsdoc": "^50.4.3",
+    "eslint-plugin-unicorn": "^56.0.0",
+    "globals": "^15.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.9.0"
+  }
+}
