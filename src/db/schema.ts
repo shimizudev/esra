@@ -23,6 +23,8 @@ export const memberSchemaData = memberSchema.table("members", {
     level: integer("level").default(1),
     about: text("about").default(""),
     icon: text("icon").default(""),
+    coins: integer("coins").default(0),
+    daily_claimed: text("daily_claimed").default(""),
     isOwner: boolean("is_owner").default(false),
     guild_id: text("guild_id").references(() => guildSchemaData.guild_id)
 });

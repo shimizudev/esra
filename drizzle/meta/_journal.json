@@ -22,6 +22,20 @@
       "when": 1729241442904,
       "tag": "0002_cynical_bloodscream",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1729244145248,
+      "tag": "0003_colorful_power_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1729246816444,
+      "tag": "0004_mushy_bedlam",
+      "breakpoints": true
     }
   ]
 }
