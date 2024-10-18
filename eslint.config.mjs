@@ -203,7 +203,6 @@ export default tsEslint.config({
         "@typescript-eslint/no-useless-constructor": "error",
         "@typescript-eslint/no-useless-empty-export": "warn",
         "@typescript-eslint/no-var-requires": "error",
-        "@typescript-eslint/non-nullable-type-assertion-style": "error",
         "@typescript-eslint/parameter-properties": "error",
         "@typescript-eslint/prefer-destructuring": "warn",
         "@typescript-eslint/prefer-function-type": "warn",
