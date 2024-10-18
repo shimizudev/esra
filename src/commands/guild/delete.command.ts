@@ -1,5 +1,5 @@
 import { Declare, type CommandContext, SubCommand } from "seyfert";
-import { guildSchemaData } from "src/db/schema";
+import { guildSchemaData, memberSchemaData } from "src/db/schema";
 import { db } from "src/db/db";
 import { eq } from "drizzle-orm";
 
@@ -34,6 +34,7 @@ export class DeleteGuildCommand extends SubCommand {
                 return;
             }
 
+            await db.delete(memberSchemaData).where(eq(memberSchemaData.guild_id, guild.id));
             await db.delete(guildSchemaData).where(eq(guildSchemaData.guild_id, guild.id));
 
             await ctx.editOrReply({ content: "Guild successfully deleted... It’s gone now... 😢" });
