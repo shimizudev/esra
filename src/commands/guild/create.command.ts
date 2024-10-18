@@ -1,4 +1,4 @@
-import { Declare, type CommandContext, SubCommand } from "seyfert";
+import { Declare, type CommandContext, SubCommand, Embed } from "seyfert";
 import { guildSchemaData } from "src/db/schema";
 import { db } from "src/db/db";
 import { eq } from "drizzle-orm";
@@ -36,7 +36,15 @@ export class CreateGuildCommand extends SubCommand {
                 motto: guild.description ?? ""
             }).execute();
 
-            await ctx.editOrReply({ content: "Yay! Guild created successfully! 🎉" });
+            const embed = new Embed();
+            embed.setColor(0xC4B08B);
+            embed.setDescription("Yay! Guild created successfully! 🎉");
+            embed.setFields([ { name: "Guild Name", value: guild.name, inline: true }, { name: "Guild Motto", value: guild.description ?? "Nothing ૮ ˶ᵔ ᵕ ᵔ˶ ა", inline: true } ]);
+            embed.setThumbnail(guild.iconURL({ forceStatic: true, extension: "png" }));
+            embed.setFooter({ text: `${guild.name}`, iconUrl: ctx.me("cache")?.avatarURL({ forceStatic: true, extension: "png" }) });
+            embed.setTimestamp();
+
+            await ctx.editOrReply({ embeds: [embed] });
         } catch (error) {
             console.error("Oopsie! Error creating guild:", error);
             await ctx.editOrReply({ content: "Uh-oh, something went wrong... Please try again later, okay? 😖" });
