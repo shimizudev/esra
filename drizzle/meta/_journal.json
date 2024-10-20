@@ -43,6 +43,13 @@
       "when": 1729426617726,
       "tag": "0005_grey_dragon_lord",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1729429930464,
+      "tag": "0006_powerful_karen_page",
+      "breakpoints": true
     }
   ]
 }
