@@ -64,12 +64,12 @@ export default class MarryCommand extends Command {
             return;
         }
 
-        if (user.relationship_status !== "single" && user.partner_id === partnerId) {
+        if (!["single", "adopted"].includes(user.relationship_status as string) && user.partner_id === partnerId) {
             await ctx.editOrReply({ content: `You want to marry <@${partnerId}> twice, huh? Overachiever! 😏` });
             return;
         }
 
-        if (user.relationship_status !== "single" && user.partner_id !== partnerId) {
+        if (!["single", "adopted"].includes(user.relationship_status as string) && user.partner_id !== partnerId) {
             await ctx.editOrReply({ content: chooseFrom(...relationshipMessages).replaceAll("<user>", `<@${user.partner_id}>`) });
             return;
         }
@@ -80,7 +80,7 @@ export default class MarryCommand extends Command {
             return;
         }
 
-        if (partner.relationship_status !== "single") {
+        if (!["single", "adopted"].includes(partner.relationship_status as string)) {
             await ctx.editOrReply({ content: `**${partnerUsername}** is already in a relationship! 💔` });
             return;
         }
