@@ -1,4 +1,4 @@
-import { serial, text, integer, pgSchema, boolean } from "drizzle-orm/pg-core";
+import { serial, text, integer, pgSchema, boolean, jsonb } from "drizzle-orm/pg-core";
 
 export const guildSchema = pgSchema("guild_schema");
 
@@ -15,6 +15,15 @@ export const guildSchemaData = guildSchema.table("guilds", {
 
 export const memberSchema = pgSchema("member_schema");
 
+export const childrenSchema = memberSchema.table("children", {
+    id: serial("id").primaryKey(),
+    user_id: text("user_id").notNull(),
+    name: text("name").notNull(),
+    username: text("username").notNull(),
+    level: integer("level").default(1),
+    about: text("about").default("")
+});
+
 export const memberSchemaData = memberSchema.table("members", {
     id: serial("id").primaryKey(),
     user_id: text("user_id").notNull().unique(),
@@ -26,7 +35,12 @@ export const memberSchemaData = memberSchema.table("members", {
     coins: integer("coins").default(0),
     daily_claimed: text("daily_claimed").default(""),
     isOwner: boolean("is_owner").default(false),
-    guild_id: text("guild_id").references(() => guildSchemaData.guild_id)
+    guild_id: text("guild_id").references(() => guildSchemaData.guild_id),
+    relationship_status: text("relationship_status").default("single"),
+    partner_id: text("partner_id").references((): any => memberSchemaData.user_id),
+    children: jsonb("children").$type<Array<{ id: number, user_id: string, name: string, username: string, level: number, about: string }>>().default([]),
+    job: text("job").default(""),
+    salary: integer("salary").default(0)
 });
 
 export const guildToMembers = guildSchema.table(
