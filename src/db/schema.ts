@@ -1,4 +1,4 @@
-import { serial, text, integer, pgSchema, boolean, jsonb, bigint } from "drizzle-orm/pg-core";
+import { serial, text, integer, pgSchema, boolean, jsonb } from "drizzle-orm/pg-core";
 
 export const guildSchema = pgSchema("guild_schema");
 
