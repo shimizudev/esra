@@ -30,6 +30,7 @@ export const memberSchemaData = memberSchema.table("members", {
     relationship_status: text("relationship_status").default("single"),
     partner_id: text("partner_id").references((): any => memberSchemaData.user_id),
     children: jsonb("children").$type<Array<{ child_id: number }>>().default([]),
+    parents: jsonb("parents").$type<Array<{ parent_id: number }>>().default([]),
     job: text("job").default(""),
     salary: integer("salary").default(0)
 });

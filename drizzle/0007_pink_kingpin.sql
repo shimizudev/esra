@@ -1,0 +1,1 @@
+ALTER TABLE "member_schema"."members" ADD COLUMN "parents" jsonb DEFAULT '[]'::jsonb;
