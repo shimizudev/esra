@@ -32,7 +32,7 @@ export default class DailyCommand extends Command {
         await db
             .update(memberSchemaData)
             .set({
-                coins: (member?.coins ?? 0) + coins,
+                coins: String(Number(member?.coins) + coins),
                 daily_claimed: now.toISOString()
             })
             .where(eq(memberSchemaData.user_id, ctx.author.id))

@@ -35,14 +35,14 @@ export default class CoinCommand extends Command {
         const member = members.find((mem) => mem.user_id === ctx.author.id);
         const coins = member?.coins ?? 0;
 
-        if (coins <= 0) {
+        if (Number(coins) <= 0) {
             await ctx.editOrReply({ content: "You have no coins to flip! 😢" });
             return;
         }
 
         let betAmount: number;
         if (betAmountStr === "all")
-            betAmount = Math.min(coins, 500_000);
+            betAmount = Math.min(Number(coins), 500_000);
         else {
             betAmount = Number(betAmountStr);
 
@@ -51,7 +51,7 @@ export default class CoinCommand extends Command {
                 return;
             }
 
-            if (betAmount > coins) {
+            if (betAmount > Number(coins)) {
                 await ctx.editOrReply({ content: `You can't bet more than what you have! You only have ${coins} coins. 💸` });
                 return;
             }
@@ -78,17 +78,17 @@ export default class CoinCommand extends Command {
         const resultStr = flipResult === "h" ? "Heads" : "Tails";
 
         if (flipResult === choice) {
-            const newCoins = coins + betAmount;
+            const newCoins = Number(coins) + betAmount;
             await db.update(memberSchemaData)
-                .set({ coins: newCoins })
+                .set({ coins: String(newCoins) })
                 .where(eq(memberSchemaData.user_id, ctx.author.id))
                 .execute();
 
             await ctx.editOrReply({ content: `Congrats! It was **${resultStr}**! You've won and now have ${newCoins} coins! 🎉💰` });
         } else {
-            const newCoins = coins - betAmount;
+            const newCoins = Number(coins) - betAmount;
             await db.update(memberSchemaData)
-                .set({ coins: newCoins })
+                .set({ coins: String(newCoins) })
                 .where(eq(memberSchemaData.user_id, ctx.author.id))
                 .execute();
 
