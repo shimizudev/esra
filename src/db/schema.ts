@@ -1,4 +1,4 @@
-import { serial, text, integer, pgSchema, boolean, jsonb } from "drizzle-orm/pg-core";
+import { serial, text, integer, pgSchema, boolean, jsonb, bigint } from "drizzle-orm/pg-core";
 
 export const guildSchema = pgSchema("guild_schema");
 
@@ -23,14 +23,14 @@ export const memberSchemaData = memberSchema.table("members", {
     level: integer("level").default(1),
     about: text("about").default(""),
     icon: text("icon").default(""),
-    coins: integer("coins").default(0),
+    coins: text("coins").default("0"),
     daily_claimed: text("daily_claimed").default(""),
     isOwner: boolean("is_owner").default(false),
     guild_id: text("guild_id").references(() => guildSchemaData.guild_id),
     relationship_status: text("relationship_status").default("single"),
     partner_id: text("partner_id").references((): any => memberSchemaData.user_id),
-    children: jsonb("children").$type<Array<{ child_id: number }>>().default([]),
-    parents: jsonb("parents").$type<Array<{ parent_id: number }>>().default([]),
+    children: jsonb("children").$type<Array<{ child_id: string }>>().default([]),
+    parents: jsonb("parents").$type<Array<{ parent_id: string }>>().default([]),
     job: text("job").default(""),
     salary: integer("salary").default(0)
 });
