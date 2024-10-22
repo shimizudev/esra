@@ -108,3 +108,5 @@ export default class WaifuIt {
         return data;
     }
 }
+
+export const waifu = new WaifuIt(process.env.WAIFU_IT_TOKEN ? process.env.WAIFU_IT_TOKEN : "");
