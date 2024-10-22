@@ -57,33 +57,71 @@ export function getDynamicMessage(reaction: Reaction, sender: string, receiver: 
             `${sender} delivers a playful punch to ${receiver}! 💥`,
             `Bam! ${sender} lightly punches ${receiver}! 💢`
         ],
+        pat: [
+            `${sender} gently pats ${receiver}'s head! 🐾`,
+            `Aww! ${sender} gives ${receiver} a soft headpat! 💕`,
+            `${sender} lovingly pats ${receiver}'s head! 🥰`
+        ],
+        clap: [
+            `${sender} applauds ${receiver} with a loud clap! 👏`,
+            `Bravo! ${sender} claps for ${receiver}! 👏`,
+            `${sender} claps enthusiastically for ${receiver}! 🎉`
+        ],
+        slap: [
+            `${sender} slaps ${receiver}! Ouch! 👋`,
+            `Smack! ${sender} slaps ${receiver} playfully! 💢`,
+            `${sender} gives ${receiver} a quick slap! 😲`
+        ],
+        pinch: [
+            `${sender} pinches ${receiver} playfully! 😜`,
+            `Ouch! ${sender} pinches ${receiver} lightly! 😝`,
+            `${sender} gives ${receiver} a teasing pinch! 😆`
+        ],
+        cry: [
+            `${sender} is crying! 😢`,
+            `Tears are streaming down ${sender}'s face as they cry at ${receiver}! 😭`,
+            `${sender} bursts into tears! 😭`
+        ],
+        facepalm: [
+            `${sender} facepalms at ${receiver}'s antics! 🤦‍♂️`,
+            `Sigh! ${sender} slaps their forehead in disbelief at ${receiver}! 🤦‍♀️`,
+            `${sender} can't believe it and facepalms at ${receiver}! 😓`
+        ],
+        mad: [
+            `${sender} is really mad at ${receiver}! 😡`,
+            `${sender} grits their teeth in anger at ${receiver}! 🔥`,
+            `${sender} is fuming with rage at ${receiver}! 😠`
+        ],
+        yes: [
+            `${sender} nods with a big 'Yes!' to ${receiver}! 👍`,
+            `Yup! ${sender} agrees with ${receiver}! 😊`,
+            `${sender} gives a firm 'Yes' to ${receiver}! 💯`
+        ],
+        no: [
+            `${sender} shakes their head at ${receiver}, saying 'No!' 😤`,
+            `Nope! ${sender} disagrees with ${receiver}! 🙅‍♂️`,
+            `${sender} firmly says 'No!' to ${receiver}! 🚫`
+        ],
         bite: [],
         brofist: [],
         celebrate: [],
         cheers: [],
-        clap: [],
         cool: [],
-        cry: [],
         dance: [],
         drool: [],
         evillaugh: [],
-        facepalm: [],
         handhold: [],
         happy: [],
         headbang: [],
         huh: [],
         laugh: [],
         love: [],
-        mad: [],
         nervous: [],
-        no: [],
         nom: [],
         nosebleed: [],
         nuzzle: [],
         nyah: [],
-        pat: [],
         peek: [],
-        pinch: [],
         poke: [],
         pout: [],
         roll: [],
@@ -95,7 +133,6 @@ export function getDynamicMessage(reaction: Reaction, sender: string, receiver: 
         shy: [],
         sigh: [],
         sip: [],
-        slap: [],
         sleep: [],
         slowclap: [],
         smack: [],
@@ -114,8 +151,7 @@ export function getDynamicMessage(reaction: Reaction, sender: string, receiver: 
         wink: [],
         woah: [],
         yawn: [],
-        yay: [],
-        yes: []
+        yay: []
     };
 
     const selectedMessages = messages[reaction];
