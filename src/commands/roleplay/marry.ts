@@ -35,6 +35,8 @@ const options = {
 @Options(options)
 export default class MarryCommand extends Command {
     public async run(ctx: CommandContext<typeof options>): Promise<void> {
+        await ctx.deferReply();
+
         const userId = ctx.author.id;
         const prt = ctx.options.partner as InteractionGuildMember;
         const partnerUsername = prt.username;
@@ -98,8 +100,9 @@ export default class MarryCommand extends Command {
         const collector = (reply as Message).createComponentCollector();
 
         collector.run("accept", async (interaction) => {
+            await interaction.deferReply();
             if (interaction.user.id !== partner.user_id) {
-                return interaction.write({
+                return interaction.followup({
                     content: `<@${interaction.user.id}> You cannot use the command!`
                 });
             }
@@ -123,20 +126,22 @@ export default class MarryCommand extends Command {
             });
 
             await (reply as Message).delete();
-            return interaction.editOrReply({
+            return interaction.followup({
                 content: `💍 Congrats, **${user.username}** and **${partner.username}** are now married! 💕`
             });
         });
 
         collector.run("reject", async (interaction) => {
+            await interaction.deferReply();
+
             if (interaction.user.id !== partner.user_id) {
-                return interaction.write({
+                return interaction.followup({
                     content: `<@${interaction.user.id}> You cannot use the command!`
                 });
             }
 
             await (reply as Message).delete();
-            return interaction.editOrReply({
+            return interaction.followup({
                 content: `💔 **${partner.username}** rejected the proposal...`
             });
         });

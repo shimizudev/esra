@@ -45,6 +45,7 @@ export class DeleteGuildCommand extends SubCommand {
             const collector = (reply as Message).createComponentCollector();
 
             collector.run("yes", async (interaction) => {
+                await interaction.deferReply();
                 await (reply as Message).delete();
                 await db.delete(memberSchemaData).where(eq(memberSchemaData.guild_id, guild.id));
                 await db.delete(guildSchemaData).where(eq(guildSchemaData.guild_id, guild.id));
@@ -53,6 +54,7 @@ export class DeleteGuildCommand extends SubCommand {
             });
 
             collector.run("no", async (interaction) => {
+                await interaction.deferReply();
                 await (reply as Message).delete();
                 return interaction.editOrReply({ content: "Guild deletion cancelled" });
             });

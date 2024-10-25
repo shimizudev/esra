@@ -74,8 +74,10 @@ export default class AdoptCommand extends Command {
         const collector = (reply as Message).createComponentCollector();
 
         collector.run("accept", async (interaction) => {
+            await interaction.deferReply();
+
             if (interaction.user.id !== child.id) {
-                return interaction.write({
+                return interaction.followup({
                     content: `<@${interaction.user.id}> You cannot use the command!`
                 });
             }
@@ -110,20 +112,22 @@ export default class AdoptCommand extends Command {
                 .execute();
 
             await (reply as Message).delete();
-            return interaction.editOrReply({
+            return interaction.followup({
                 content: `🎉 Congrats! **<@${user.user_id}>** and <@${user.partner_id}> have adopted **${child.username}**! 💕`
             });
         });
 
         collector.run("reject", async (interaction) => {
+            await interaction.deferReply();
+
             if (interaction.user.id !== child.id) {
-                return interaction.write({
+                return interaction.followup({
                     content: `<@${interaction.user.id}> You cannot use the command!`
                 });
             }
 
             await (reply as Message).delete();
-            return interaction.editOrReply({
+            return interaction.followup({
                 content: `💔 **${child.username}** rejected the adoption...`
             });
         });
