@@ -1,15 +1,15 @@
 import { Declare, type CommandContext, SubCommand, Message, Button, ActionRow } from "seyfert";
-import { guildSchemaData, memberSchemaData } from "src/db/schema";
-import { db } from "src/db/db";
+import { guildSchemaData, memberSchemaData } from "../../db/schema";
+import { db } from "../../db/db";
 import { eq } from "drizzle-orm";
-import { ButtonStyle } from "seyfert/lib/types";
+import { ButtonStyle } from "seyfert/lib/types/index";
 
 @Declare({
     name: "delete",
     description: "Delete the guild~"
 })
 export class DeleteGuildCommand extends SubCommand {
-    public async run(ctx: CommandContext): Promise<void> {
+    public override async run(ctx: CommandContext): Promise<void> {
         await ctx.deferReply();
 
         const guild = ctx.guild("cache");

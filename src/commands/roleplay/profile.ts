@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Command, Options, type CommandContext, Embed, createUserOption, Declare } from "seyfert";
-import { db } from "src/db/db";
-import { memberSchemaData, guildSchemaData } from "src/db/schema";
+import { db } from "../../db/db";
+import { memberSchemaData, guildSchemaData } from "../../db/schema";
 import { eq } from "drizzle-orm";
-import { capitalize, capitalizeAll } from "src/utils/str";
+import { capitalize, capitalizeAll } from "../../utils/str";
 
 const options = {
     user: createUserOption({
@@ -20,7 +18,7 @@ const options = {
 })
 @Options(options)
 export default class ProfileCommand extends Command {
-    public async run(ctx: CommandContext<typeof options>): Promise<void> {
+    public override async run(ctx: CommandContext<typeof options>): Promise<void> {
         const userId = ctx.options.user?.id ?? ctx.author.id;
 
         const [user] = await db

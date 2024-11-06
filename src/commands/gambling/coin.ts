@@ -1,6 +1,6 @@
 import { Declare, Command, type CommandContext } from "seyfert";
-import { db } from "src/db/db";
-import { memberSchemaData } from "src/db/schema";
+import { db } from "../../db/db";
+import { memberSchemaData } from "../../db/schema";
 import { eq } from "drizzle-orm";
 
 @Declare({
@@ -9,7 +9,7 @@ import { eq } from "drizzle-orm";
     aliases: ["coins", "cash", "c"]
 })
 export default class CoinCommand extends Command {
-    public async run(ctx: CommandContext): Promise<void> {
+    public override async run(ctx: CommandContext): Promise<void> {
         const members = await db.select().from(memberSchemaData).where(eq(memberSchemaData.user_id, ctx.author.id)).execute();
 
         if (members.length <= 0)

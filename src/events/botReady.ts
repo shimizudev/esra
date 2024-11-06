@@ -1,5 +1,5 @@
 import { createEvent } from "seyfert";
-import { ActivityType, PresenceUpdateStatus } from "seyfert/lib/types";
+import { ActivityType, PresenceUpdateStatus } from "seyfert/lib/types/index";
 
 export default createEvent({
     data: { once: true, name: "botReady" },

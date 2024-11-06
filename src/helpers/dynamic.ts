@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { CommandContext, OptionsRecord } from "seyfert";
 import { Embed } from "seyfert";
-import { otakuGif, type Reaction } from "src/lib/otakugif";
-import { chooseFrom } from "src/utils/random";
+import { otakuGif, type Reaction } from "../lib/otakugif";
+import { chooseFrom } from "../utils/random";
 
 export function getDynamicMessage(reaction: Reaction, sender: string, receiver: string): string {
     const messages: Record<Reaction, Array<string>> = {
@@ -172,7 +170,7 @@ export async function handleReaction<U extends OptionsRecord>(ctx: CommandContex
             .setImage(gif.url);
 
         await ctx.write({ embeds: [embed] });
-    } catch (error) {
+    } catch {
         await ctx.write({ content: "Failed to fetch reaction gif." });
     }
 }

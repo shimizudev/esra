@@ -1,8 +1,8 @@
 import { Declare, Command, Options, type CommandContext, createStringOption } from "seyfert";
-import { db } from "src/db/db";
-import { memberSchemaData } from "src/db/schema";
+import { db } from "../../db/db";
+import { memberSchemaData } from "../../db/schema";
 import { eq } from "drizzle-orm";
-import { chooseFrom } from "src/utils/random";
+import { chooseFrom } from "../../utils/random";
 
 const options = {
     amount: createStringOption({
@@ -22,7 +22,7 @@ const options = {
 })
 @Options(options)
 export default class CoinCommand extends Command {
-    public async run(ctx: CommandContext<typeof options>): Promise<void> {
+    public override async run(ctx: CommandContext<typeof options>): Promise<void> {
         const members = await db.select().from(memberSchemaData).where(eq(memberSchemaData.user_id, ctx.author.id)).execute();
         let choice = ctx.options.choice?.toLowerCase() ?? "heads";
         const betAmountStr = ctx.options.amount;

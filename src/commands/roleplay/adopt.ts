@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Declare, Command, Options, type CommandContext, createUserOption, InteractionGuildMember, Button, ActionRow, Message } from "seyfert";
-import { db } from "src/db/db";
-import { memberSchemaData } from "src/db/schema";
+import { db } from "../../db/db";
+import { memberSchemaData } from "../../db/schema";
 import { eq } from "drizzle-orm";
-import { ButtonStyle } from "seyfert/lib/types";
+import { ButtonStyle } from "seyfert/lib/types/index";
 
 const options = {
     child: createUserOption({
@@ -20,7 +18,7 @@ const options = {
 })
 @Options(options)
 export default class AdoptCommand extends Command {
-    public async run(ctx: CommandContext<typeof options>): Promise<void> {
+    public override async run(ctx: CommandContext<typeof options>): Promise<void> {
         await ctx.deferReply();
 
         const userId = ctx.author.id;

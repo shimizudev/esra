@@ -28,7 +28,8 @@ export const memberSchemaData = memberSchema.table("members", {
     isOwner: boolean("is_owner").default(false),
     guild_id: text("guild_id").references(() => guildSchemaData.guild_id),
     relationship_status: text("relationship_status").default("single"),
-    partner_id: text("partner_id").references((): any => memberSchemaData.user_id),
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        partner_id: text("partner_id").references((): any => memberSchemaData.user_id),
     children: jsonb("children").$type<Array<{ child_id: string }>>().default([]),
     parents: jsonb("parents").$type<Array<{ parent_id: string }>>().default([]),
     job: text("job").default(""),

@@ -1,7 +1,8 @@
 import { Declare, Command, type CommandContext, createStringOption, Options } from "seyfert";
-import { db } from "src/db/db";
-import { memberSchemaData } from "src/db/schema";
+import { db } from "../../db/db";
+import { memberSchemaData } from "../../db/schema";
 import { eq } from "drizzle-orm";
+import process from "node:process";
 
 const options = {
     amount: createStringOption({
@@ -21,7 +22,7 @@ const options = {
 })
 @Options(options)
 export default class DailyCommand extends Command {
-    public async run(ctx: CommandContext<typeof options>): Promise<void> {
+    public override async run(ctx: CommandContext<typeof options>): Promise<void> {
         const user = ctx.options.userid ?? ctx.author.id;
 
         const members = await db.select().from(memberSchemaData).where(eq(memberSchemaData.user_id, user)).execute();

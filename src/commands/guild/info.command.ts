@@ -1,6 +1,6 @@
 import { Declare, type CommandContext, SubCommand, Embed } from "seyfert";
-import { guildSchemaData } from "src/db/schema";
-import { db } from "src/db/db";
+import { guildSchemaData } from "../../db/schema";
+import { db } from "../../db/db";
 import { eq } from "drizzle-orm";
 
 @Declare({
@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
     description: "Get information of your cute guild~ 💖"
 })
 export class GuildInfoCommand extends SubCommand {
-    public async run(ctx: CommandContext): Promise<void> {
+    public override async run(ctx: CommandContext): Promise<void> {
         await ctx.deferReply();
 
         const guild = ctx.guild("cache");

@@ -1,5 +1,6 @@
-import { Command, CommandContext, Declare, Options, createUserOption } from "seyfert";
-import { handleReaction } from "src/helpers/dynamic";
+import { Command, type CommandContext, Declare, Options, createUserOption } from "seyfert";
+import { handleReaction } from "../../helpers/dynamic";
+
 
 const options = {
     target: createUserOption({
@@ -14,7 +15,7 @@ const options = {
 })
 @Options(options)
 export default class ClapCommand extends Command {
-    public async run(ctx: CommandContext<typeof options>): Promise<void> {
+    public override async run(ctx: CommandContext<typeof options>): Promise<void> {
         await handleReaction(ctx, "clap");
     }
 }

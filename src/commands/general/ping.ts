@@ -5,7 +5,7 @@ import { Declare, Command, type CommandContext } from "seyfert";
     description: "Check bot's ping"
 })
 export default class PingCommand extends Command {
-    public async run(ctx: CommandContext): Promise<void> {
+    public override async run(ctx: CommandContext): Promise<void> {
         const ping = ctx.client.gateway.latency;
 
         await ctx.write({

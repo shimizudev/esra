@@ -1,6 +1,6 @@
 import { Declare, type CommandContext, SubCommand, Embed } from "seyfert";
-import { guildSchemaData, memberSchemaData } from "src/db/schema";
-import { db } from "src/db/db";
+import { guildSchemaData, memberSchemaData } from "../../db/schema";
+import { db } from "../../db/db";
 import { and, eq } from "drizzle-orm";
 
 @Declare({
@@ -8,7 +8,7 @@ import { and, eq } from "drizzle-orm";
     description: "Join a guild and become part of the fun~ 💖"
 })
 export class JoinGuildCommand extends SubCommand {
-    public async run(ctx: CommandContext): Promise<void> {
+    public override async run(ctx: CommandContext): Promise<void> {
         await ctx.deferReply();
 
         const guild = ctx.guild("cache");
