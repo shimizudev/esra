@@ -7,7 +7,7 @@ import "dotenv/config";
 
 const client = new Client({
     commands: {
-        prefix: () => ["esra ", "esra!"]
+        prefix: () => ["esra ", "esra!", "esra?"]
     }
 });
 
